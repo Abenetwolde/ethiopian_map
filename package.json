@@ -1,45 +1,48 @@
 {
-  "name": "ethiopian_map_react",
-  "version": "1.0.0",
+  "name": "@abnet-wolde/ethiopian-map",
+  "version": "1.0.7",
   "description": "A customizable React component for interactive SVG maps of Ethiopian regions with TypeScript support",
-  "main": "index.js",
+  "main": "./dist/index.es.js",
   "type": "module",
+  "types": "./dist/index.d.ts",
   "scripts": {
+    "dev": "vite",
     "build": "tsc && vite build",
     "lint": "eslint src --ext .ts,.tsx",
     "test": "jest",
     "prepare": "npm run build"
   },
-"keywords": [
-  "react",
-  "typescript",
-  "ethiopia",
-  "map",
-  "svg",
-  "interactive-map",
-  "geographic-component",
-  "react-component",
-  "ethiopian-regions",
-  "data-visualization"
-],
+  "keywords": [
+    "react",
+    "typescript",
+    "ethiopia",
+    "map",
+    "svg",
+    "interactive-map",
+    "geographic-component",
+    "react-component",
+    "ethiopian-regions",
+    "data-visualization"
+  ],
   "author": "Abnet Wolde",
   "homepage": "https://github.com/Abenetwolde/ethiopian_map.git",
-"repository": {
-  "type": "git",
-  "url": "https://github.com/Abenetwolde/ethiopian_map.git"
-},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Abenetwolde/ethiopian_map.git"
+  },
   "license": "MIT",
   "peerDependencies": {
-    "react": "^17.0.0 || ^18.0.0",
-    "react-dom": "^17.0.0 || ^18.0.0"
+    "react": "^19.0.0 || ^19.0.0",
+    "react-dom": "^19.0.0 || ^19.0.0"
   },
   "devDependencies": {
     "@types/jest": "^30.0.0",
-    "@types/react": "^19.1.8",
+    "@types/react": "^19.0.0",
     "@typescript-eslint/eslint-plugin": "^8.35.0",
     "@typescript-eslint/parser": "^8.35.0",
     "eslint": "^9.29.0",
     "jest": "^30.0.3",
+    "jest-environment-jsdom": "^30.0.2",
     "ts-jest": "^29.4.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3",
@@ -47,6 +50,10 @@
     "vite-plugin-dts": "^4.5.4"
   },
   "dependencies": {
-    "@testing-library/react": "^16.3.0"
-  }
+    "@testing-library/react": "^16.3.0",
+    "@vitejs/plugin-react": "^4.6.0"
+  },
+  "files": [
+    "dist"
+  ]
 }

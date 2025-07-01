@@ -1,24 +1,18 @@
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
-import path from 'path';
-
+import react from '@vitejs/plugin-react';
 export default defineConfig({
   build: {
     lib: {
-      entry: path.resolve(__dirname, 'src/index.ts'),
-      name: 'EthiopiaMapComponent',
+       entry: "src/index.ts",
+      name: '@abnet-wolde/ethiopian-map',
       fileName: (format) => `index.${format}.js`,
       formats: ['es', 'cjs']
     },
-    rollupOptions: {
+  rollupOptions: {
       external: ['react', 'react-dom'],
-      output: {
-        globals: {
-          react: 'React',
-          'react-dom': 'ReactDOM'
-        }
-      }
-    }
+    },
+ 
   },
-  plugins: [dts()]
+  plugins: [dts(), react()],
 });
