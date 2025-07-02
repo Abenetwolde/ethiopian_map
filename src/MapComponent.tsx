@@ -88,34 +88,44 @@ const MapComponent: React.FC<MapComponentProps> = ({
     onRegionHover?.(regionId);
   }, [onRegionHover]);
 
+  const calculateCentroid = (points: string) => {
+  const coords = points.split(' ').map(p => {
+    const [x, y] = p.split(',').map(Number);
+    return { x, y };
+  });
+
+  let x = 0, y = 0;
+  for (const point of coords) {
+    x += point.x;
+    y += point.y;
+  }
+  
+  return {
+    x: x / coords.length,
+    y: y / coords.length
+  };
+};
   // Calculate center points for each region for label placement
-  const regionCenters = useMemo(() => {
-    const centers: Record<string, { x: number; y: number }> = {};
-    
-    // Predefined centers for each region (you would need to calculate these)
-    // This is a simplified approach - in a real implementation, you'd want to 
-    // calculate these dynamically based on the polygon points
-    const predefinedCenters = {
-      tigray: { x: 180, y: 40 },
-      addis_ababa: { x: 170, y: 170 },
-      harar: { x: 265, y: 165 },
-      oromiya: { x: 200, y: 200 },
-      snnpr: { x: 180, y: 230 },
-      somalia: { x: 350, y: 180 },
-      amhara: { x: 180, y: 120 },
-      afar: { x: 230, y: 90 },
-      dire: { x: 265, y: 150 },
-      sidama: { x: 160, y: 240 },
-      gambella: { x: 30, y: 200 },
-      benishangul: { x: 80, y: 150 }
-    };
+const regionCenters = useMemo(() => {
+  const centers: Record<string, { x: number; y: number }> = {};
+  
+  regions.forEach((region:any) => {
+    if (labelPosition === 'centroid') {
+      // Calculate actual centroid for more precise positioning
+      centers[region.id] = calculateCentroid(region.points);
+    } else {
+      // Use predefined centers as fallback
+      const predefinedCenters = {
+        tigray: { x: 180, y: 40 },
+        addis_ababa: { x: 170, y: 170 },
+        // ... other predefined centers
+      };
+      centers[region.id] = predefinedCenters[region.id as keyof typeof predefinedCenters] || calculateCentroid(region.points);
+    }
+  });
 
-    regions.forEach(region => {
-      centers[region.id] = predefinedCenters[region.id as keyof typeof predefinedCenters] || { x: 0, y: 0 };
-    });
-
-    return centers;
-  }, [regions]);
+  return centers;
+}, [regions, labelPosition]);
 
   // Get fill color for a region, considering custom colors from regionData
   const getFillColor = useCallback((regionId: string) => {
@@ -165,9 +175,9 @@ const MapComponent: React.FC<MapComponentProps> = ({
               onMouseEnter={() => handleRegionHover("tigray")}
               onMouseLeave={() => handleRegionHover(null)}
             />
-            {tooltipContent && (
+            {/* {tooltipContent && (
               <title>{tooltipContent("tigray", regionData["tigray"])}</title>
-            )}
+            )} */}
             {showRegionLabels && (
               <text
                 x={regionCenters.tigray.x}
@@ -204,9 +214,9 @@ const MapComponent: React.FC<MapComponentProps> = ({
               onMouseEnter={() => handleRegionHover("addis_ababa")}
               onMouseLeave={() => handleRegionHover(null)}
             />
-            {tooltipContent && (
+            {/* {tooltipContent && (
               <title>{tooltipContent("addis_ababa", regionData["addis_ababa"])}</title>
-            )}
+            )} */}
             {showRegionLabels && (
               <text
                 x={regionCenters.addis_ababa.x}
@@ -243,9 +253,9 @@ const MapComponent: React.FC<MapComponentProps> = ({
               onMouseEnter={() => handleRegionHover("harar")}
               onMouseLeave={() => handleRegionHover(null)}
             />
-            {tooltipContent && (
+            {/* {tooltipContent && (
               <title>{tooltipContent("harar", regionData["harar"])}</title>
-            )}
+            )} */}
             {showRegionLabels && (
               <text
                 x={regionCenters.harar.x}
@@ -320,9 +330,9 @@ const MapComponent: React.FC<MapComponentProps> = ({
                 onClick={() => handleRegionClick("oromiya")}
               />
             </g>
-            {tooltipContent && (
+            {/* {tooltipContent && (
               <title>{tooltipContent("oromiya", regionData["oromiya"])}</title>
-            )}
+            )} */}
             {showRegionLabels && (
               <text
                 x={regionCenters.oromiya.x}
@@ -357,9 +367,9 @@ const MapComponent: React.FC<MapComponentProps> = ({
               onMouseEnter={() => handleRegionHover("snnpr")}
               onMouseLeave={() => handleRegionHover(null)}
             />
-            {tooltipContent && (
+            {/* {tooltipContent && (
               <title>{tooltipContent("snnpr", regionData["snnpr"])}</title>
-            )}
+            )} */}
             {showRegionLabels && (
               <text
                 x={regionCenters.snnpr.x}
@@ -414,9 +424,9 @@ const MapComponent: React.FC<MapComponentProps> = ({
                 onClick={() => handleRegionClick("somalia")}
               />
             </g>
-            {tooltipContent && (
+            {/* {tooltipContent && (
               <title>{tooltipContent("somalia", regionData["somalia"])}</title>
-            )}
+            )} */}
             {showRegionLabels && (
               <text
                 x={regionCenters.somalia.x}
@@ -452,9 +462,9 @@ const MapComponent: React.FC<MapComponentProps> = ({
               onMouseEnter={() => handleRegionHover("amhara")}
               onMouseLeave={() => handleRegionHover(null)}
             />
-            {tooltipContent && (
+            {/* {tooltipContent && (
               <title>{tooltipContent("amhara", regionData["amhara"])}</title>
-            )}
+            )} */}
             {showRegionLabels && (
               <text
                 x={regionCenters.amhara.x}
@@ -490,9 +500,9 @@ const MapComponent: React.FC<MapComponentProps> = ({
               onMouseEnter={() => handleRegionHover("afar")}
               onMouseLeave={() => handleRegionHover(null)}
             />
-            {tooltipContent && (
+            {/* {tooltipContent && (
               <title>{tooltipContent("afar", regionData["afar"])}</title>
-            )}
+            )} */}
             {showRegionLabels && (
               <text
                 x={regionCenters.afar.x}
@@ -528,9 +538,9 @@ const MapComponent: React.FC<MapComponentProps> = ({
               onMouseEnter={() => handleRegionHover("dire")}
               onMouseLeave={() => handleRegionHover(null)}
             />
-            {tooltipContent && (
+            {/* {tooltipContent && (
               <title>{tooltipContent("dire", regionData["dire"])}</title>
-            )}
+            )} */}
             {showRegionLabels && (
               <text
                 x={regionCenters.dire.x}
@@ -566,9 +576,9 @@ const MapComponent: React.FC<MapComponentProps> = ({
               onMouseEnter={() => handleRegionHover("sidama")}
               onMouseLeave={() => handleRegionHover(null)}
             />
-            {tooltipContent && (
+            {/* {tooltipContent && (
               <title>{tooltipContent("sidama", regionData["sidama"])}</title>
-            )}
+            )} */}
             {showRegionLabels && (
               <text
                 x={regionCenters.sidama.x}
@@ -604,9 +614,9 @@ const MapComponent: React.FC<MapComponentProps> = ({
               onMouseEnter={() => handleRegionHover("gambella")}
               onMouseLeave={() => handleRegionHover(null)}
             />
-            {tooltipContent && (
+            {/* {tooltipContent && (
               <title>{tooltipContent("gambella", regionData["gambella"])}</title>
-            )}
+            )} */}
             {showRegionLabels && (
               <text
                 x={regionCenters.gambella.x}
@@ -642,9 +652,9 @@ const MapComponent: React.FC<MapComponentProps> = ({
               onMouseEnter={() => handleRegionHover("benishangul")}
               onMouseLeave={() => handleRegionHover(null)}
             />
-            {tooltipContent && (
+            {/* {tooltipContent && (
               <title>{tooltipContent("benishangul", regionData["benishangul"])}</title>
-            )}
+            )} */}
             {showRegionLabels && (
               <text
                 x={regionCenters.benishangul.x}
