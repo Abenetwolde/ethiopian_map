@@ -44,6 +44,9 @@ interface MapComponentProps {
   labelPosition?: 'center' | 'centroid';
   showValues?: boolean;
   valueFormatter?: (value: string | number) => string;
+    // New props for default styles
+  defaultLabelStyle?: React.CSSProperties;
+  defaultValueStyle?: React.CSSProperties;
 }
 
 const MapComponent: React.FC<MapComponentProps> = ({
@@ -54,7 +57,7 @@ const MapComponent: React.FC<MapComponentProps> = ({
   defaultFillColor = '#00C4B4',
   activeFillColor = '#40E0D0',
   hoverFillColor = '#40E0D0',
-  strokeColor = '#808080',
+  strokeColor = '#ffffff',
   activeStrokeColor = '#FFFFFF',
   strokeWidth = 1,
   activeStrokeWidth = 2,
@@ -74,7 +77,9 @@ const MapComponent: React.FC<MapComponentProps> = ({
   labelClassName = 'text-xs font-medium fill-current',
   labelPosition = 'center',
   showValues = false,
-  valueFormatter = (val) => val.toString()
+  valueFormatter = (val) => val.toString(),
+    defaultLabelStyle = {},
+  defaultValueStyle = {}
 }) => {
   const [hoveredRegion, setHoveredRegion] = useState<string | null>(null);
 
@@ -88,45 +93,58 @@ const MapComponent: React.FC<MapComponentProps> = ({
     onRegionHover?.(regionId);
   }, [onRegionHover]);
 
-  const calculateCentroid = (points: string) => {
-  const coords = points.split(' ').map(p => {
-    const [x, y] = p.split(',').map(Number);
-    return { x, y };
-  });
-
-  let x = 0, y = 0;
-  for (const point of coords) {
-    x += point.x;
-    y += point.y;
-  }
-  
-  return {
-    x: x / coords.length,
-    y: y / coords.length
-  };
-};
   // Calculate center points for each region for label placement
-const regionCenters = useMemo(() => {
-  const centers: Record<string, { x: number; y: number }> = {};
-  
-  regions.forEach((region:any) => {
-    if (labelPosition === 'centroid') {
-      // Calculate actual centroid for more precise positioning
-      centers[region.id] = calculateCentroid(region.points);
-    } else {
-      // Use predefined centers as fallback
-      const predefinedCenters = {
-        tigray: { x: 180, y: 40 },
-        addis_ababa: { x: 170, y: 170 },
-        // ... other predefined centers
-      };
-      centers[region.id] = predefinedCenters[region.id as keyof typeof predefinedCenters] || calculateCentroid(region.points);
-    }
-  });
+  const regionCenters = useMemo(() => {
+    const centers: Record<string, { x: number; y: number }> = {};
+    
+    // Predefined centers for each region (you would need to calculate these)
+    // This is a simplified approach - in a real implementation, you'd want to 
+    // calculate these dynamically based on the polygon points
+    const predefinedCenters = {
+      tigray: { x: 150, y: 20 },
+      addis_ababa: { x: 170, y: 170 },
+      harar: { x: 265, y: 165 },
+      oromiya: { x: 200, y: 200 },
+      snnpr: { x: 110, y: 230 },
+      somalia: { x: 300, y: 230 },
+      amhara: { x: 160, y: 100 },
+      afar: { x: 230, y: 90 },
+      dire: { x: 265, y: 150 },
+      sidama: { x: 160, y: 240 },
+      gambella: { x: 30, y: 200 },
+      benishangul: { x: 80, y: 110 }
+    };
 
-  return centers;
-}, [regions, labelPosition]);
+    regions.forEach(region => {
+      centers[region.id] = predefinedCenters[region.id as keyof typeof predefinedCenters] || { x: 0, y: 0 };
+    });
 
+    return centers;
+  }, [regions]);
+    // Get merged label style (default + region-specific)
+  const getLabelStyle = useCallback((regionId: string) => {
+    const baseStyle = {
+      pointerEvents: 'none',
+      ...defaultLabelStyle
+    };
+    return {
+      ...baseStyle,
+      ...(regionData[regionId]?.labelStyle || {})
+    };
+  }, [regionData, defaultLabelStyle]);
+  // Get merged value style (default + region-specific)
+  const getValueStyle = useCallback((regionId: string) => {
+    const baseStyle = {
+      pointerEvents: 'none',
+      textShadow: '0 0 2px white, 0 0 2px white, 0 0 2px white',
+      fontSize: '0.8em',
+      ...defaultValueStyle
+    };
+    return {
+      ...baseStyle,
+      ...(regionData[regionId]?.valueStyle || {})
+    };
+  }, [regionData, defaultValueStyle]);
   // Get fill color for a region, considering custom colors from regionData
   const getFillColor = useCallback((regionId: string) => {
     if (selectedRegion === regionId) return activeFillColor;
@@ -175,9 +193,9 @@ const regionCenters = useMemo(() => {
               onMouseEnter={() => handleRegionHover("tigray")}
               onMouseLeave={() => handleRegionHover(null)}
             />
-            {/* {tooltipContent && (
+            {tooltipContent && (
               <title>{tooltipContent("tigray", regionData["tigray"])}</title>
-            )} */}
+            )}
             {showRegionLabels && (
               <text
                 x={regionCenters.tigray.x}
@@ -185,6 +203,7 @@ const regionCenters = useMemo(() => {
                 className={labelClassName}
                 textAnchor="middle"
                 dominantBaseline="middle"
+                style={getLabelStyle("tigray")}
               >
                 Tigray
               </text>
@@ -192,10 +211,11 @@ const regionCenters = useMemo(() => {
             {showValues && regionData["tigray"]?.value !== undefined && (
               <text
                 x={regionCenters.tigray.x}
-                y={regionCenters.tigray.y + 15}
+                y={regionCenters.tigray.y + 35}
                 className={labelClassName}
                 textAnchor="middle"
                 dominantBaseline="middle"
+                style={getValueStyle("tigray")}
               >
                 {valueFormatter(regionData["tigray"].value)}
               </text>
@@ -214,9 +234,9 @@ const regionCenters = useMemo(() => {
               onMouseEnter={() => handleRegionHover("addis_ababa")}
               onMouseLeave={() => handleRegionHover(null)}
             />
-            {/* {tooltipContent && (
+            {tooltipContent && (
               <title>{tooltipContent("addis_ababa", regionData["addis_ababa"])}</title>
-            )} */}
+            )}
             {showRegionLabels && (
               <text
                 x={regionCenters.addis_ababa.x}
@@ -253,9 +273,9 @@ const regionCenters = useMemo(() => {
               onMouseEnter={() => handleRegionHover("harar")}
               onMouseLeave={() => handleRegionHover(null)}
             />
-            {/* {tooltipContent && (
+            {tooltipContent && (
               <title>{tooltipContent("harar", regionData["harar"])}</title>
-            )} */}
+            )}
             {showRegionLabels && (
               <text
                 x={regionCenters.harar.x}
@@ -330,9 +350,9 @@ const regionCenters = useMemo(() => {
                 onClick={() => handleRegionClick("oromiya")}
               />
             </g>
-            {/* {tooltipContent && (
+            {tooltipContent && (
               <title>{tooltipContent("oromiya", regionData["oromiya"])}</title>
-            )} */}
+            )}
             {showRegionLabels && (
               <text
                 x={regionCenters.oromiya.x}
@@ -367,9 +387,9 @@ const regionCenters = useMemo(() => {
               onMouseEnter={() => handleRegionHover("snnpr")}
               onMouseLeave={() => handleRegionHover(null)}
             />
-            {/* {tooltipContent && (
+            {tooltipContent && (
               <title>{tooltipContent("snnpr", regionData["snnpr"])}</title>
-            )} */}
+            )}
             {showRegionLabels && (
               <text
                 x={regionCenters.snnpr.x}
@@ -424,9 +444,9 @@ const regionCenters = useMemo(() => {
                 onClick={() => handleRegionClick("somalia")}
               />
             </g>
-            {/* {tooltipContent && (
+            {tooltipContent && (
               <title>{tooltipContent("somalia", regionData["somalia"])}</title>
-            )} */}
+            )}
             {showRegionLabels && (
               <text
                 x={regionCenters.somalia.x}
@@ -462,9 +482,9 @@ const regionCenters = useMemo(() => {
               onMouseEnter={() => handleRegionHover("amhara")}
               onMouseLeave={() => handleRegionHover(null)}
             />
-            {/* {tooltipContent && (
+            {tooltipContent && (
               <title>{tooltipContent("amhara", regionData["amhara"])}</title>
-            )} */}
+            )}
             {showRegionLabels && (
               <text
                 x={regionCenters.amhara.x}
@@ -500,9 +520,9 @@ const regionCenters = useMemo(() => {
               onMouseEnter={() => handleRegionHover("afar")}
               onMouseLeave={() => handleRegionHover(null)}
             />
-            {/* {tooltipContent && (
+            {tooltipContent && (
               <title>{tooltipContent("afar", regionData["afar"])}</title>
-            )} */}
+            )}
             {showRegionLabels && (
               <text
                 x={regionCenters.afar.x}
@@ -538,9 +558,9 @@ const regionCenters = useMemo(() => {
               onMouseEnter={() => handleRegionHover("dire")}
               onMouseLeave={() => handleRegionHover(null)}
             />
-            {/* {tooltipContent && (
+            {tooltipContent && (
               <title>{tooltipContent("dire", regionData["dire"])}</title>
-            )} */}
+            )}
             {showRegionLabels && (
               <text
                 x={regionCenters.dire.x}
@@ -576,9 +596,9 @@ const regionCenters = useMemo(() => {
               onMouseEnter={() => handleRegionHover("sidama")}
               onMouseLeave={() => handleRegionHover(null)}
             />
-            {/* {tooltipContent && (
+            {tooltipContent && (
               <title>{tooltipContent("sidama", regionData["sidama"])}</title>
-            )} */}
+            )}
             {showRegionLabels && (
               <text
                 x={regionCenters.sidama.x}
@@ -614,9 +634,9 @@ const regionCenters = useMemo(() => {
               onMouseEnter={() => handleRegionHover("gambella")}
               onMouseLeave={() => handleRegionHover(null)}
             />
-            {/* {tooltipContent && (
+            {tooltipContent && (
               <title>{tooltipContent("gambella", regionData["gambella"])}</title>
-            )} */}
+            )}
             {showRegionLabels && (
               <text
                 x={regionCenters.gambella.x}
@@ -652,9 +672,9 @@ const regionCenters = useMemo(() => {
               onMouseEnter={() => handleRegionHover("benishangul")}
               onMouseLeave={() => handleRegionHover(null)}
             />
-            {/* {tooltipContent && (
+            {tooltipContent && (
               <title>{tooltipContent("benishangul", regionData["benishangul"])}</title>
-            )} */}
+            )}
             {showRegionLabels && (
               <text
                 x={regionCenters.benishangul.x}

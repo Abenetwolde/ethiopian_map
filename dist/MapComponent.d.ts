@@ -14,7 +14,7 @@ interface RegionData {
 interface MapComponentProps {
     selectedRegion: string | null;
     setSelectedRegion: React.Dispatch<React.SetStateAction<string | null>>;
-    regions?: any;
+    regions?: MapRegion[];
     regionData?: Record<string, RegionData>;
     defaultFillColor?: string;
     activeFillColor?: string;
@@ -40,6 +40,8 @@ interface MapComponentProps {
     labelPosition?: 'center' | 'centroid';
     showValues?: boolean;
     valueFormatter?: (value: string | number) => string;
+    defaultLabelStyle?: React.CSSProperties;
+    defaultValueStyle?: React.CSSProperties;
 }
 declare const MapComponent: React.FC<MapComponentProps>;
 export default MapComponent;
