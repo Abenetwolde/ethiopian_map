@@ -1,10 +1,22 @@
-Ethiopia Map Component
-A customizable React component for rendering an interactive SVG map of Ethiopian regions with hover, click, and zoom functionalities.
-Installation
-npm install @your-org/ethiopia-map-component
+# 🇪🇹 Ethiopia Map Component
 
-Usage
-Basic Example
+A customizable **React component** for rendering an interactive SVG map of Ethiopian regions with hover, click, and zoom functionalities.
+
+---
+
+## 📦 Installation
+
+```bash
+npm install @your-org/ethiopia-map-component
+```
+
+---
+
+## 🚀 Usage
+
+### Basic Example
+
+```jsx
 import React, { useState } from 'react';
 import { MapComponent } from '@your-org/ethiopia-map-component';
 
@@ -63,201 +75,59 @@ const Tooltip = ({ regionId, data }) => (
 );
 
 export default App;
-
-Props
-
-
-
-Prop
-Type
-Default
-Description
-
-
-
-selectedRegion
-`string
-null`
-null
-
-
-setSelectedRegion
-`React.Dispatch<React.SetStateAction<string
-null>>`
--
-
-
-regionData
-Record<string, any>
-{}
-Custom data for regions (e.g., value, label, universities).
-
-
-defaultFillColor
-string
-#67AE6E
-Default region fill color.
-
-
-activeFillColor
-string
-#90C67C
-Fill color for the active region.
-
-
-hoverFillColor
-string
-#90C67C
-Fill color on region hover.
-
-
-strokeColor
-string
-#328E6E
-Region boundary stroke color.
-
-
-activeStrokeColor
-string
-#FFFFFF
-Stroke color for the active region.
-
-
-strokeWidth
-number
-0.7
-Default stroke width.
-
-
-activeStrokeWidth
-number
-1
-Stroke width for the active region.
-
-
-hoverOpacity
-number
-0.9
-Region opacity on hover (0 to 1).
-
-
-className
-string
-flex items-center justify-center w-full h-auto bg-gray-100
-Container class name.
-
-
-svgClassName
-string
-w-full h-auto
-SVG element class name.
-
-
-onRegionHover
-`(regionId: string
-null) => void`
--
-
-
-onRegionClick
-(regionId: string) => void
--
-Callback on region click.
-
-
-tooltipContent
-(regionId: string, data?: any) => React.ReactNode
--
-Renders custom tooltip content.
-
-
-width
-`string
-number`
-100%
-
-
-height
-`string
-number`
-auto
-
-
-viewBox
-string
-0 0 441.853 328.295
-SVG viewBox for scaling.
-
-
-enableZoom
-boolean
-false
-Enables zoom functionality.
-
-
-zoomLevel
-number
-1
-Initial zoom level.
-
-
-customStyles
-string
-''
-Additional SVG CSS styles.
-
-
-showRegionLabels
-boolean
-false
-Displays region labels.
-
-
-labelClassName
-string
-text-xs font-medium
-Class name for labels.
-
-
-labelPosition
-string
-center
-Label position ('center', 'top', etc.).
-
-
-showValues
-boolean
-false
-Displays region values.
-
-
-valueFormatter
-(val: any) => string
-(val) => val.toString()
-Formats region values.
-
-
-defaultLabelStyle
-React.CSSProperties
-{}
-Styles for region labels.
-
-
-defaultValueStyle
-React.CSSProperties
-{}
-Styles for region values.
-
-
-showLegend
-boolean
-true
-Displays a legend.
-
-
-Styling
-Uses Tailwind CSS. Include it in your project:
+```
+
+---
+
+## 🧩 Props
+
+| Prop                | Type                                                  | Default                                                         | Description                                                |
+|---------------------|-------------------------------------------------------|------------------------------------------------------------------|------------------------------------------------------------|
+| `selectedRegion`    | `string \| null`                                     | `null`                                                           | Currently selected region ID                              |
+| `setSelectedRegion` | `React.Dispatch<React.SetStateAction<string \| null>>`| —                                                                | Setter function for region selection                      |
+| `regionData`        | `Record<string, any>`                                  | `{}`                                                             | Custom data for each region                               |
+| `defaultFillColor`  | `string`                                               | `#67AE6E`                                                        | Default region fill color                                 |
+| `activeFillColor`   | `string`                                               | `#90C67C`                                                        | Fill color for active region                              |
+| `hoverFillColor`    | `string`                                               | `#90C67C`                                                        | Fill color on region hover                                |
+| `strokeColor`       | `string`                                               | `#328E6E`                                                        | Region border color                                       |
+| `activeStrokeColor` | `string`                                               | `#FFFFFF`                                                        | Border color for active region                            |
+| `strokeWidth`       | `number`                                               | `0.7`                                                            | Default border width                                      |
+| `activeStrokeWidth` | `number`                                               | `1`                                                              | Border width for active region                            |
+| `hoverOpacity`      | `number`                                               | `0.9`                                                            | Opacity when hovering (0–1)                               |
+| `className`         | `string`                                               | `flex items-center justify-center w-full h-auto bg-gray-100`     | Container class                                            |
+| `svgClassName`      | `string`                                               | `w-full h-auto`                                                 | SVG element class name                                    |
+| `onRegionHover`     | `(regionId: string \| null) => void`                 | —                                                                | Callback when a region is hovered                         |
+| `onRegionClick`     | `(regionId: string) => void`                           | —                                                                | Callback when a region is clicked                         |
+| `tooltipContent`    | `(regionId: string, data?: any) => React.ReactNode`   | —                                                                | Renders custom tooltip content                            |
+| `width`             | `string \| number`                                   | `'100%'`                                                         | Width of the map                                          |
+| `height`            | `string \| number`                                   | `'auto'`                                                         | Height of the map                                         |
+| `viewBox`           | `string`                                               | `'0 0 441.853 328.295'`                                          | SVG viewBox                                               |
+| `enableZoom`        | `boolean`                                              | `false`                                                          | Enables zoom support                                      |
+| `zoomLevel`         | `number`                                               | `1`                                                              | Initial zoom level                                        |
+| `customStyles`      | `string`                                               | `''`                                                             | Custom CSS for SVG                                        |
+| `showRegionLabels`  | `boolean`                                              | `false`                                                          | Whether to show region labels                             |
+| `labelClassName`    | `string`                                               | `text-xs font-medium`                                            | CSS class for labels                                      |
+| `labelPosition`     | `string`                                               | `'center'`                                                       | Label position (`'center'`, `'top'`, etc.)                |
+| `showValues`        | `boolean`                                              | `false`                                                          | Whether to show numeric values for regions                |
+| `valueFormatter`    | `(val: any) => string`                                 | `(val) => val.toString()`                                        | Function to format value                                  |
+| `defaultLabelStyle` | `React.CSSProperties`                                  | `{}`                                                             | Inline style for region labels                            |
+| `defaultValueStyle` | `React.CSSProperties`                                  | `{}`                                                             | Inline style for region values                            |
+| `showLegend`        | `boolean`                                              | `true`                                                           | Whether to show legend                                    |
+
+---
+
+## 🎨 Styling
+
+This component uses [Tailwind CSS](https://tailwindcss.com/).
+
+Make sure to include it in your project (if not already):
+
+```html
 <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+```
 
-License
-MIT
+---
+
+## 📄 License
+
+**MIT**
