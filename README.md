@@ -7,7 +7,7 @@ A customizable **React component** for rendering an interactive SVG map of Ethio
 ## 📦 Installation
 
 ```bash
-npm install @your-org/ethiopia-map-component
+npm install ethiopia-svg-map
 ```
 
 ---
@@ -18,7 +18,7 @@ npm install @your-org/ethiopia-map-component
 
 ```jsx
 import React, { useState } from 'react';
-import { MapComponent } from '@your-org/ethiopia-map-component';
+import { EthiopiaSvgMap } from '@your-org/ethiopia-map-component';
 
 const App = () => {
   const [selectedRegion, setSelectedRegion] = useState(null);
@@ -37,7 +37,7 @@ const App = () => {
   };
 
   return (
-    <MapComponent
+    <EthiopiaSvgMap
       regionData={regionData}
       selectedRegion={selectedRegion}
       setSelectedRegion={setSelectedRegion}
