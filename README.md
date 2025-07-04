@@ -1,7 +1,8 @@
-# 🇪🇹 Ethiopia Map Component
+# Ethiopian SVG Map Component
 
 A customizable **React component** for rendering an interactive SVG map of Ethiopian regions with hover, click, and zoom functionalities.
 
+![Demo](./assets/ethiopia-map-demo.gif)
 ---
 
 ## 📦 Installation
@@ -18,7 +19,7 @@ npm install ethiopia-svg-map
 
 ```jsx
 import React, { useState } from 'react';
-import { EthiopiaSvgMap } from '@your-org/ethiopia-map-component';
+import { EthiopiaSvgMap } from 'ethiopia-svg-map';
 
 const App = () => {
   const [selectedRegion, setSelectedRegion] = useState(null);
@@ -28,12 +29,15 @@ const App = () => {
       value: 5,
       label: 'Tigray',
       universities: ['Mekelle University', 'Aksum University']
+      color:"#347433"
     },
     amhara: {
       value: 7,
       label: 'Amhara',
+      color: "FFC107"
       universities: ['University of Gondar', 'Bahir Dar University']
     }
+  //Add data for the other regions
   };
 
   return (
@@ -63,15 +67,6 @@ const App = () => {
 
 // Simplified Tooltip Component
 const Tooltip = ({ regionId, data }) => (
-  <div className="bg-white border border-gray-300 shadow-lg p-2 rounded-md text-xs">
-    <div className="font-semibold">{data?.label || regionId}</div>
-    <ul className="list-disc list-inside">
-      {data?.universities?.map((uni, index) => (
-        <li key={index}>{uni}</li>
-      ))}
-    </ul>
-    <div className="text-right">Total: {data?.value || 0}</div>
-  </div>
 );
 
 export default App;
