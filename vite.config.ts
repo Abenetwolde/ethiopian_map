@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
 import react from '@vitejs/plugin-react';
+import tailwindcss from '@tailwindcss/vite'
 export default defineConfig({
   build: {
     lib: {
@@ -14,5 +15,5 @@ export default defineConfig({
     },
  
   },
-  plugins: [dts(), react()],
+  plugins: [dts(), react(),tailwindcss(),],
 });

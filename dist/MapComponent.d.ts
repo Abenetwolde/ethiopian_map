@@ -42,7 +42,8 @@ interface MapComponentProps {
     valueFormatter?: (value: string | number) => string;
     defaultLabelStyle?: React.CSSProperties;
     defaultValueStyle?: React.CSSProperties;
+    showLegend?: boolean;
 }
-declare const MapComponent: React.FC<MapComponentProps>;
-export default MapComponent;
+declare const EthiopiaSvgMap: React.FC<MapComponentProps>;
+export default EthiopiaSvgMap;
 export type { MapComponentProps, MapRegion, RegionData };

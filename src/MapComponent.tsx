@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useMemo } from 'react';
 import demoData from './demo-data';
-
+import './global.css'; // Import your styles
 interface MapRegion {
   id: string;
   name: string;
@@ -44,12 +44,13 @@ interface MapComponentProps {
   labelPosition?: 'center' | 'centroid';
   showValues?: boolean;
   valueFormatter?: (value: string | number) => string;
-    // New props for default styles
+  // New props for default styles
   defaultLabelStyle?: React.CSSProperties;
   defaultValueStyle?: React.CSSProperties;
+  showLegend?: boolean, // Default to true for legend visibility
 }
 
-const MapComponent: React.FC<MapComponentProps> = ({
+const EthiopiaSvgMap: React.FC<MapComponentProps> = ({
   selectedRegion,
   setSelectedRegion,
   regions = demoData,
@@ -62,7 +63,7 @@ const MapComponent: React.FC<MapComponentProps> = ({
   strokeWidth = 1,
   activeStrokeWidth = 2,
   hoverOpacity = 0.9,
-  className = 'flex flex-col lg:flex-row gap-4 p-4',
+  className = '',
   svgClassName = 'w-full h-auto',
   onRegionHover,
   onRegionClick,
@@ -74,18 +75,22 @@ const MapComponent: React.FC<MapComponentProps> = ({
   zoomLevel = 1,
   customStyles = '',
   showRegionLabels = false,
-  labelClassName = 'text-xs font-medium fill-current',
+  labelClassName = 'text-xs font-medium ',
   labelPosition = 'center',
   showValues = false,
   valueFormatter = (val) => val.toString(),
-    defaultLabelStyle = {},
-  defaultValueStyle = {}
+  defaultLabelStyle = {},
+  defaultValueStyle = {},
+  showLegend = true, 
+  
 }) => {
   const [hoveredRegion, setHoveredRegion] = useState<string | null>(null);
 
   const handleRegionClick = useCallback((regionId: string) => {
     setSelectedRegion((prev) => (prev === regionId ? null : regionId));
     onRegionClick?.(regionId);
+    //     setHoveredRegion(regionId);
+    // onRegionHover?.(regionId);
   }, [setSelectedRegion, onRegionClick]);
 
   const handleRegionHover = useCallback((regionId: string | null) => {
@@ -96,10 +101,6 @@ const MapComponent: React.FC<MapComponentProps> = ({
   // Calculate center points for each region for label placement
   const regionCenters = useMemo(() => {
     const centers: Record<string, { x: number; y: number }> = {};
-    
-    // Predefined centers for each region (you would need to calculate these)
-    // This is a simplified approach - in a real implementation, you'd want to 
-    // calculate these dynamically based on the polygon points
     const predefinedCenters = {
       tigray: { x: 150, y: 20 },
       addis_ababa: { x: 170, y: 170 },
@@ -121,7 +122,7 @@ const MapComponent: React.FC<MapComponentProps> = ({
 
     return centers;
   }, [regions]);
-    // Get merged label style (default + region-specific)
+  // Get merged label style (default + region-specific)
   const getLabelStyle = useCallback((regionId: string) => {
     const baseStyle = {
       pointerEvents: 'none',
@@ -136,7 +137,7 @@ const MapComponent: React.FC<MapComponentProps> = ({
   const getValueStyle = useCallback((regionId: string) => {
     const baseStyle = {
       pointerEvents: 'none',
-      textShadow: '0 0 2px white, 0 0 2px white, 0 0 2px white',
+      // textShadow: '0 0 2px white, 0 0 2px white, 0 0 2px white',
       fontSize: '0.8em',
       ...defaultValueStyle
     };
@@ -152,15 +153,19 @@ const MapComponent: React.FC<MapComponentProps> = ({
     return regionData[regionId]?.color || defaultFillColor;
   }, [selectedRegion, hoveredRegion, regionData, defaultFillColor, activeFillColor, hoverFillColor]);
 
+  // Filter regions that have a color defined in regionData
+  const regionsWithColor = useMemo(() => {
+    return regions.filter(region => regionData[region.id]?.color);
+  }, [regions, regionData]);
   return (
-    <div className={className}>
-      <div className="w-full h-full relative">
+    <div className={`${className} flex flex-col lg:flex-row gap-4 p-4`}>
+      <div className="relative">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox={viewBox}
           className={svgClassName}
-          width={width}
-          height={height}
+          // width={width}
+          // height={height}
           style={{ transform: enableZoom ? `scale(${zoomLevel})` : 'none' }}
         >
           <style>
@@ -178,10 +183,13 @@ const MapComponent: React.FC<MapComponentProps> = ({
                 cursor: pointer;
                 opacity: ${hoverOpacity};
               }
+                text {
+                stroke: none; 
+              }
               ${customStyles}
             `}
           </style>
-          
+
           {/* Tigray Region */}
           <g className="cls-2 state" id="tigrayl">
             <polygon
@@ -193,9 +201,7 @@ const MapComponent: React.FC<MapComponentProps> = ({
               onMouseEnter={() => handleRegionHover("tigray")}
               onMouseLeave={() => handleRegionHover(null)}
             />
-            {tooltipContent && (
-              <title>{tooltipContent("tigray", regionData["tigray"])}</title>
-            )}
+      
             {showRegionLabels && (
               <text
                 x={regionCenters.tigray.x}
@@ -234,9 +240,7 @@ const MapComponent: React.FC<MapComponentProps> = ({
               onMouseEnter={() => handleRegionHover("addis_ababa")}
               onMouseLeave={() => handleRegionHover(null)}
             />
-            {tooltipContent && (
-              <title>{tooltipContent("addis_ababa", regionData["addis_ababa"])}</title>
-            )}
+      
             {showRegionLabels && (
               <text
                 x={regionCenters.addis_ababa.x}
@@ -244,6 +248,7 @@ const MapComponent: React.FC<MapComponentProps> = ({
                 className={labelClassName}
                 textAnchor="middle"
                 dominantBaseline="middle"
+                style={getLabelStyle("addis_ababa")}
               >
                 Addis Ababa
               </text>
@@ -255,14 +260,15 @@ const MapComponent: React.FC<MapComponentProps> = ({
                 className={labelClassName}
                 textAnchor="middle"
                 dominantBaseline="middle"
+                style={getValueStyle("addis_ababa")}
+
               >
                 {valueFormatter(regionData["addis_ababa"].value)}
               </text>
             )}
           </g>
 
-          {/* Other regions would follow the same pattern */}
-          {/* Harar */}
+
           <g className="cls-2 state" id="hararl">
             <polygon
               id="harar"
@@ -273,9 +279,7 @@ const MapComponent: React.FC<MapComponentProps> = ({
               onMouseEnter={() => handleRegionHover("harar")}
               onMouseLeave={() => handleRegionHover(null)}
             />
-            {tooltipContent && (
-              <title>{tooltipContent("harar", regionData["harar"])}</title>
-            )}
+       
             {showRegionLabels && (
               <text
                 x={regionCenters.harar.x}
@@ -283,6 +287,7 @@ const MapComponent: React.FC<MapComponentProps> = ({
                 className={labelClassName}
                 textAnchor="middle"
                 dominantBaseline="middle"
+                style={getLabelStyle("harar")}
               >
                 Harar
               </text>
@@ -294,6 +299,7 @@ const MapComponent: React.FC<MapComponentProps> = ({
                 className={labelClassName}
                 textAnchor="middle"
                 dominantBaseline="middle"
+                style={getValueStyle("harar")}
               >
                 {valueFormatter(regionData["harar"].value)}
               </text>
@@ -350,9 +356,7 @@ const MapComponent: React.FC<MapComponentProps> = ({
                 onClick={() => handleRegionClick("oromiya")}
               />
             </g>
-            {tooltipContent && (
-              <title>{tooltipContent("oromiya", regionData["oromiya"])}</title>
-            )}
+  
             {showRegionLabels && (
               <text
                 x={regionCenters.oromiya.x}
@@ -387,9 +391,7 @@ const MapComponent: React.FC<MapComponentProps> = ({
               onMouseEnter={() => handleRegionHover("snnpr")}
               onMouseLeave={() => handleRegionHover(null)}
             />
-            {tooltipContent && (
-              <title>{tooltipContent("snnpr", regionData["snnpr"])}</title>
-            )}
+      
             {showRegionLabels && (
               <text
                 x={regionCenters.snnpr.x}
@@ -428,7 +430,7 @@ const MapComponent: React.FC<MapComponentProps> = ({
                 fill={getFillColor("somalia")}
                 className={`state ${selectedRegion === "somalia" ? "active" : ""}`}
                 onClick={() => handleRegionClick("somalia")}
-                onMouseEnter={() => handleRegionHover("somalia")}
+                 onMouseEnter={() => handleRegionHover("somalia")}
                 onMouseLeave={() => handleRegionHover(null)}
               />
               <polygon
@@ -444,9 +446,7 @@ const MapComponent: React.FC<MapComponentProps> = ({
                 onClick={() => handleRegionClick("somalia")}
               />
             </g>
-            {tooltipContent && (
-              <title>{tooltipContent("somalia", regionData["somalia"])}</title>
-            )}
+       
             {showRegionLabels && (
               <text
                 x={regionCenters.somalia.x}
@@ -479,12 +479,14 @@ const MapComponent: React.FC<MapComponentProps> = ({
               fill={getFillColor("amhara")}
               className={`state ${selectedRegion === "amhara" ? "active" : ""}`}
               onClick={() => handleRegionClick("amhara")}
+
+
+
+              
               onMouseEnter={() => handleRegionHover("amhara")}
               onMouseLeave={() => handleRegionHover(null)}
             />
-            {tooltipContent && (
-              <title>{tooltipContent("amhara", regionData["amhara"])}</title>
-            )}
+      
             {showRegionLabels && (
               <text
                 x={regionCenters.amhara.x}
@@ -520,9 +522,7 @@ const MapComponent: React.FC<MapComponentProps> = ({
               onMouseEnter={() => handleRegionHover("afar")}
               onMouseLeave={() => handleRegionHover(null)}
             />
-            {tooltipContent && (
-              <title>{tooltipContent("afar", regionData["afar"])}</title>
-            )}
+       
             {showRegionLabels && (
               <text
                 x={regionCenters.afar.x}
@@ -558,9 +558,7 @@ const MapComponent: React.FC<MapComponentProps> = ({
               onMouseEnter={() => handleRegionHover("dire")}
               onMouseLeave={() => handleRegionHover(null)}
             />
-            {tooltipContent && (
-              <title>{tooltipContent("dire", regionData["dire"])}</title>
-            )}
+     
             {showRegionLabels && (
               <text
                 x={regionCenters.dire.x}
@@ -596,9 +594,7 @@ const MapComponent: React.FC<MapComponentProps> = ({
               onMouseEnter={() => handleRegionHover("sidama")}
               onMouseLeave={() => handleRegionHover(null)}
             />
-            {tooltipContent && (
-              <title>{tooltipContent("sidama", regionData["sidama"])}</title>
-            )}
+    
             {showRegionLabels && (
               <text
                 x={regionCenters.sidama.x}
@@ -634,9 +630,7 @@ const MapComponent: React.FC<MapComponentProps> = ({
               onMouseEnter={() => handleRegionHover("gambella")}
               onMouseLeave={() => handleRegionHover(null)}
             />
-            {tooltipContent && (
-              <title>{tooltipContent("gambella", regionData["gambella"])}</title>
-            )}
+    
             {showRegionLabels && (
               <text
                 x={regionCenters.gambella.x}
@@ -672,9 +666,7 @@ const MapComponent: React.FC<MapComponentProps> = ({
               onMouseEnter={() => handleRegionHover("benishangul")}
               onMouseLeave={() => handleRegionHover(null)}
             />
-            {tooltipContent && (
-              <title>{tooltipContent("benishangul", regionData["benishangul"])}</title>
-            )}
+      
             {showRegionLabels && (
               <text
                 x={regionCenters.benishangul.x}
@@ -699,26 +691,45 @@ const MapComponent: React.FC<MapComponentProps> = ({
             )}
           </g>
         </svg>
-        {tooltipContent && hoveredRegion && (
-          <div className="absolute top-0 left-0 bg-white p-2 rounded shadow">
-            {tooltipContent(hoveredRegion, regionData[hoveredRegion])}
-          </div>
-        )}
+
+{tooltipContent && hoveredRegion && (
+  <div
+    className="absolute top-0 right-8 bg-white p-2 rounded shadow z-10 pointer-events-none"
+    style={{ transform: 'translateY(-100%)' }} // Move tooltip above the state
+  >
+    {tooltipContent(hoveredRegion, regionData[hoveredRegion])}
+  </div>
+)}
+ 
+
+
       </div>
-      <div className="mt-4">
-        <button
-          className="w-fit bg-primary font-bold text-sm text-primary-dark-2 py-1 px-3 rounded-full cursor-pointer"
-          onClick={() => {
-            setSelectedRegion(null);
-            handleRegionHover(null);
-          }}
-        >
-          Reset Selection
-        </button>
-      </div>
+      {showLegend && regionsWithColor.length > 0 && (
+  <div className="mt-2 pointer-events-none">
+    <div className="pointer-events-auto p-4 max-w-2xl w-full">
+      <h3 className="text-sm font-bold mb-2">Legend</h3>
+      <ul className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-x-4 gap-y-2 text-sm">
+        {regionsWithColor.map(region => (
+          <li key={region.id} className="flex items-center">
+            <div
+              className="w-4 h-4 mr-2 flex-shrink-0"
+              style={{ backgroundColor: regionData[region.id]?.color || defaultFillColor }}
+            ></div>
+            <span className="truncate">
+              {region.name}
+              {regionData[region.id]?.value !== undefined && (
+                <span>: {valueFormatter(regionData[region.id]!.value as string | number)}</span>
+              )}
+            </span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+)}
     </div>
   );
 };
 
-export default MapComponent;
+export default EthiopiaSvgMap;
 export type { MapComponentProps, MapRegion, RegionData };
