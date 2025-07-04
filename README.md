@@ -2,7 +2,7 @@
 
 A customizable **React component** for rendering an interactive SVG map of Ethiopian regions with hover, click, and zoom functionalities.
 
-![Demo](./assets/ethiopia-map-demo.gif)
+![Demo](./sample-1.gif)
 ---
 
 ## 📦 Installation
