@@ -2,13 +2,20 @@
 
 A customizable **React component** for rendering an interactive SVG map of Ethiopian regions with hover, click, and zoom functionalities.
 
-![Demo](./sample-1.gif)
+![Demo](./EthiopiaSvgMap.gif)
+
+[🌐 **Live Demo Website**](https://ethiopia-svg-map-demo.vercel.app/)
 ---
 
 ## 📦 Installation
 
 ```bash
 npm install ethiopia-svg-map
+# or
+yarn add ethiopia-svg-map
+# or
+pnpm install ethiopia-svg-map
+
 ```
 
 ---
@@ -18,12 +25,12 @@ npm install ethiopia-svg-map
 ### Basic Example
 
 ```jsx
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { EthiopiaSvgMap } from 'ethiopia-svg-map';
 
 const App = () => {
   const [selectedRegion, setSelectedRegion] = useState(null);
-
+//sample datas
   const regionData = {
     tigray: {
       value: 5,
@@ -65,11 +72,10 @@ const App = () => {
   );
 };
 
-// Simplified Tooltip Component
+// Sample Tooltip Component
 const Tooltip = ({ regionId, data }) => (
 );
 
-export default App;
 ```
 
 ---
@@ -80,7 +86,7 @@ export default App;
 |---------------------|-------------------------------------------------------|------------------------------------------------------------------|------------------------------------------------------------|
 | `selectedRegion`    | `string \| null`                                     | `null`                                                           | Currently selected region ID                              |
 | `setSelectedRegion` | `React.Dispatch<React.SetStateAction<string \| null>>`| —                                                                | Setter function for region selection                      |
-| `regionData`        | `Record<string, any>`                                  | `{}`                                                             | Custom data for each region                               |
+| `regionData`        | `Record<string, RegionData>`                                  | `{}`                                                             | Custom data for each region                               |
 | `defaultFillColor`  | `string`                                               | `#67AE6E`                                                        | Default region fill color                                 |
 | `activeFillColor`   | `string`                                               | `#90C67C`                                                        | Fill color for active region                              |
 | `hoverFillColor`    | `string`                                               | `#90C67C`                                                        | Fill color on region hover                                |

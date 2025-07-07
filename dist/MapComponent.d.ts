@@ -15,7 +15,7 @@ interface MapComponentProps {
     selectedRegion: string | null;
     setSelectedRegion: React.Dispatch<React.SetStateAction<string | null>>;
     regions?: MapRegion[];
-    regionData?: Record<string, RegionData>;
+    regionData?: Record<string, any>;
     defaultFillColor?: string;
     activeFillColor?: string;
     hoverFillColor?: string;

@@ -19,7 +19,7 @@ interface MapComponentProps {
   selectedRegion: string | null;
   setSelectedRegion: React.Dispatch<React.SetStateAction<string | null>>;
   regions?: MapRegion[];
-  regionData?: Record<string, RegionData>;
+  regionData?: Record<string, any>;
   defaultFillColor?: string;
   activeFillColor?: string;
   hoverFillColor?: string;
@@ -704,25 +704,29 @@ const EthiopiaSvgMap: React.FC<MapComponentProps> = ({
 
 
       </div>
-      {showLegend && regionsWithColor.length > 0 && (
+{showLegend && regionsWithColor.length > 0 && (
   <div className="mt-2 pointer-events-none">
     <div className="pointer-events-auto p-4 max-w-2xl w-full">
       <h3 className="text-sm font-bold mb-2">Legend</h3>
       <ul className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-x-4 gap-y-2 text-sm">
-        {regionsWithColor.map(region => (
-          <li key={region.id} className="flex items-center">
-            <div
-              className="w-4 h-4 mr-2 flex-shrink-0"
-              style={{ backgroundColor: regionData[region.id]?.color || defaultFillColor }}
-            ></div>
-            <span className="truncate">
-              {region.name}
-              {regionData[region.id]?.value !== undefined && (
-                <span>: {valueFormatter(regionData[region.id]!.value as string | number)}</span>
-              )}
-            </span>
-          </li>
-        ))}
+        {regionsWithColor.map(region => {
+          // Map regionData color to Tailwind classes or fallback to default
+          const colorClass = regionData[region.id]?.color
+            ? `bg-[${regionData[region.id].color.replace('#', '#')}]`
+            : 'bg-[#67AE6E]'; // Fallback to defaultFillColor
+
+          return (
+            <li key={region.id} className="flex items-center">
+              <div className={`w-4 h-4 mr-2 flex-shrink-0 ${colorClass}`}></div>
+              <span className="truncate">
+                {region.name}
+                {regionData[region.id]?.value !== undefined && (
+                  <span>: {valueFormatter(regionData[region?.id]?.value)}</span>
+                )}
+              </span>
+            </li>
+          );
+        })}
       </ul>
     </div>
   </div>

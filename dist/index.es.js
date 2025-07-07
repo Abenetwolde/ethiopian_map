@@ -1,5 +1,5 @@
-import n1, { useState as t1, useCallback as O, useMemo as V } from "react";
-var Z = { exports: {} }, $ = {};
+import n1, { useState as t1, useCallback as $, useMemo as V } from "react";
+var Z = { exports: {} }, O = {};
 /**
  * @license React
  * react-jsx-runtime.production.js
@@ -11,25 +11,25 @@ var Z = { exports: {} }, $ = {};
  */
 var D;
 function s1() {
-  if (D) return $;
+  if (D) return O;
   D = 1;
   var i = Symbol.for("react.transitional.element"), _ = Symbol.for("react.fragment");
-  function b(t, y, p) {
+  function b(t, h, p) {
     var E = null;
-    if (p !== void 0 && (E = "" + p), y.key !== void 0 && (E = "" + y.key), "key" in y) {
+    if (p !== void 0 && (E = "" + p), h.key !== void 0 && (E = "" + h.key), "key" in h) {
       p = {};
-      for (var N in y)
-        N !== "key" && (p[N] = y[N]);
-    } else p = y;
-    return y = p.ref, {
+      for (var N in h)
+        N !== "key" && (p[N] = h[N]);
+    } else p = h;
+    return h = p.ref, {
       $$typeof: i,
       type: t,
       key: E,
-      ref: y !== void 0 ? y : null,
+      ref: h !== void 0 ? h : null,
       props: p
     };
   }
-  return $.Fragment = _, $.jsx = b, $.jsxs = b, $;
+  return O.Fragment = _, O.jsx = b, O.jsxs = b, O;
 }
 var P = {};
 /**
@@ -50,7 +50,7 @@ function l1() {
         return e.$$typeof === v ? null : e.displayName || e.name || null;
       if (typeof e == "string") return e;
       switch (e) {
-        case A:
+        case k:
           return "Fragment";
         case X:
           return "Profiler";
@@ -76,7 +76,7 @@ function l1() {
           case H:
             var s = e.render;
             return e = e.displayName, e || (e = s.displayName || s.name || "", e = e !== "" ? "ForwardRef(" + e + ")" : "ForwardRef"), e;
-          case h:
+          case y:
             return s = e.displayName || null, s !== null ? s : i(e.type) || "Memo";
           case d:
             s = e._payload, e = e._init;
@@ -108,7 +108,7 @@ function l1() {
       }
     }
     function t(e) {
-      if (e === A) return "<>";
+      if (e === k) return "<>";
       if (typeof e == "object" && e !== null && e.$$typeof === d)
         return "<...>";
       try {
@@ -118,8 +118,8 @@ function l1() {
         return "<...>";
       }
     }
-    function y() {
-      var e = u.A;
+    function h() {
+      var e = x.A;
       return e === null ? null : e.getOwner();
     }
     function p() {
@@ -150,12 +150,12 @@ function l1() {
         "Accessing element.ref was removed in React 19. ref is now a regular prop. It will be removed from the JSX Element type in a future release."
       )), e = this.props.ref, e !== void 0 ? e : null;
     }
-    function U(e, s, n, m, l, x, g, J) {
-      return n = x.ref, e = {
+    function U(e, s, n, m, l, u, g, J) {
+      return n = u.ref, e = {
         $$typeof: w,
         type: e,
         key: s,
-        props: x,
+        props: u,
         _owner: l
       }, (n !== void 0 ? n : null) !== null ? Object.defineProperty(e, "ref", {
         enumerable: !1,
@@ -182,7 +182,7 @@ function l1() {
         value: J
       }), Object.freeze && (Object.freeze(e.props), Object.freeze(e)), e;
     }
-    function R(e, s, n, m, l, x, g, J) {
+    function R(e, s, n, m, l, u, g, J) {
       var f = s.children;
       if (f !== void 0)
         if (m)
@@ -224,9 +224,9 @@ React keys must be passed directly to JSX without using spread:
       ), U(
         e,
         f,
-        x,
+        u,
         l,
-        y(),
+        h(),
         n,
         g,
         J
@@ -235,20 +235,20 @@ React keys must be passed directly to JSX without using spread:
     function B(e) {
       typeof e == "object" && e !== null && e.$$typeof === w && e._store && (e._store.validated = 1);
     }
-    var k = n1, w = Symbol.for("react.transitional.element"), L = Symbol.for("react.portal"), A = Symbol.for("react.fragment"), C = Symbol.for("react.strict_mode"), X = Symbol.for("react.profiler"), Q = Symbol.for("react.consumer"), z = Symbol.for("react.context"), H = Symbol.for("react.forward_ref"), q = Symbol.for("react.suspense"), G = Symbol.for("react.suspense_list"), h = Symbol.for("react.memo"), d = Symbol.for("react.lazy"), K = Symbol.for("react.activity"), v = Symbol.for("react.client.reference"), u = k.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, S = Object.prototype.hasOwnProperty, Y = Array.isArray, M = console.createTask ? console.createTask : function() {
+    var A = n1, w = Symbol.for("react.transitional.element"), L = Symbol.for("react.portal"), k = Symbol.for("react.fragment"), C = Symbol.for("react.strict_mode"), X = Symbol.for("react.profiler"), Q = Symbol.for("react.consumer"), z = Symbol.for("react.context"), H = Symbol.for("react.forward_ref"), q = Symbol.for("react.suspense"), G = Symbol.for("react.suspense_list"), y = Symbol.for("react.memo"), d = Symbol.for("react.lazy"), K = Symbol.for("react.activity"), v = Symbol.for("react.client.reference"), x = A.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, S = Object.prototype.hasOwnProperty, Y = Array.isArray, M = console.createTask ? console.createTask : function() {
       return null;
     };
-    k = {
+    A = {
       "react-stack-bottom-frame": function(e) {
         return e();
       }
     };
-    var j, W = {}, c = k["react-stack-bottom-frame"].bind(
-      k,
+    var j, W = {}, c = A["react-stack-bottom-frame"].bind(
+      A,
       p
     )(), o = M(t(p)), r = {};
-    P.Fragment = A, P.jsx = function(e, s, n, m, l) {
-      var x = 1e4 > u.recentlyCreatedOwnerStacks++;
+    P.Fragment = k, P.jsx = function(e, s, n, m, l) {
+      var u = 1e4 > x.recentlyCreatedOwnerStacks++;
       return R(
         e,
         s,
@@ -256,11 +256,11 @@ React keys must be passed directly to JSX without using spread:
         !1,
         m,
         l,
-        x ? Error("react-stack-top-frame") : c,
-        x ? M(t(e)) : o
+        u ? Error("react-stack-top-frame") : c,
+        u ? M(t(e)) : o
       );
     }, P.jsxs = function(e, s, n, m, l) {
-      var x = 1e4 > u.recentlyCreatedOwnerStacks++;
+      var u = 1e4 > x.recentlyCreatedOwnerStacks++;
       return R(
         e,
         s,
@@ -268,8 +268,8 @@ React keys must be passed directly to JSX without using spread:
         !0,
         m,
         l,
-        x ? Error("react-stack-top-frame") : c,
-        x ? M(t(e)) : o
+        u ? Error("react-stack-top-frame") : c,
+        u ? M(t(e)) : o
       );
     };
   }()), P;
@@ -359,7 +359,7 @@ const o1 = [
   setSelectedRegion: _,
   regions: b = o1,
   regionData: t = {},
-  defaultFillColor: y = "#00C4B4",
+  defaultFillColor: h = "#00C4B4",
   activeFillColor: p = "#40E0D0",
   hoverFillColor: E = "#40E0D0",
   strokeColor: N = "#ffffff",
@@ -367,10 +367,10 @@ const o1 = [
   strokeWidth: U = 1,
   activeStrokeWidth: R = 2,
   hoverOpacity: B = 0.9,
-  className: k = "",
+  className: A = "",
   svgClassName: w = "w-full h-auto",
   onRegionHover: L,
-  onRegionClick: A,
+  onRegionClick: k,
   tooltipContent: C,
   width: X = "100%",
   height: Q = "auto",
@@ -378,21 +378,21 @@ const o1 = [
   enableZoom: H = !1,
   zoomLevel: q = 1,
   customStyles: G = "",
-  showRegionLabels: h = !1,
+  showRegionLabels: y = !1,
   labelClassName: d = "text-xs font-medium ",
   labelPosition: K = "center",
   showValues: v = !1,
-  valueFormatter: u = (j) => j.toString(),
+  valueFormatter: x = (j) => j.toString(),
   defaultLabelStyle: S = {},
   defaultValueStyle: Y = {},
   showLegend: M = !0
 }) => {
-  const [j, W] = t1(null), c = O((l) => {
-    _((x) => x === l ? null : l), A?.(l);
-  }, [_, A]), o = O((l) => {
+  const [j, W] = t1(null), c = $((l) => {
+    _((u) => u === l ? null : l), k?.(l);
+  }, [_, k]), o = $((l) => {
     W(l), L?.(l);
   }, [L]), r = V(() => {
-    const l = {}, x = {
+    const l = {}, u = {
       tigray: { x: 150, y: 20 },
       addis_ababa: { x: 170, y: 170 },
       harar: { x: 265, y: 165 },
@@ -407,15 +407,15 @@ const o1 = [
       benishangul: { x: 80, y: 110 }
     };
     return b.forEach((g) => {
-      l[g.id] = x[g.id] || { x: 0, y: 0 };
+      l[g.id] = u[g.id] || { x: 0, y: 0 };
     }), l;
-  }, [b]), e = O((l) => ({
+  }, [b]), e = $((l) => ({
     ...{
       pointerEvents: "none",
       ...S
     },
     ...t[l]?.labelStyle || {}
-  }), [t, S]), s = O((l) => ({
+  }), [t, S]), s = $((l) => ({
     ...{
       pointerEvents: "none",
       // textShadow: '0 0 2px white, 0 0 2px white, 0 0 2px white',
@@ -423,8 +423,8 @@ const o1 = [
       ...Y
     },
     ...t[l]?.valueStyle || {}
-  }), [t, Y]), n = O((l) => i === l ? p : j === l ? E : t[l]?.color || y, [i, j, t, y, p, E]), m = V(() => b.filter((l) => t[l.id]?.color), [b, t]);
-  return /* @__PURE__ */ a.jsxs("div", { className: `${k} flex flex-col lg:flex-row gap-4 p-4`, children: [
+  }), [t, Y]), n = $((l) => i === l ? p : j === l ? E : t[l]?.color || h, [i, j, t, h, p, E]), m = V(() => b.filter((l) => t[l.id]?.color), [b, t]);
+  return /* @__PURE__ */ a.jsxs("div", { className: `${A} flex flex-col lg:flex-row gap-4 p-4`, children: [
     /* @__PURE__ */ a.jsxs("div", { className: "relative", children: [
       /* @__PURE__ */ a.jsxs(
         "svg",
@@ -466,7 +466,7 @@ const o1 = [
                   onMouseLeave: () => o(null)
                 }
               ),
-              h && /* @__PURE__ */ a.jsx(
+              y && /* @__PURE__ */ a.jsx(
                 "text",
                 {
                   x: r.tigray.x,
@@ -487,7 +487,7 @@ const o1 = [
                   textAnchor: "middle",
                   dominantBaseline: "middle",
                   style: s("tigray"),
-                  children: u(t.tigray.value)
+                  children: x(t.tigray.value)
                 }
               )
             ] }),
@@ -505,7 +505,7 @@ const o1 = [
                   onMouseLeave: () => o(null)
                 }
               ),
-              h && /* @__PURE__ */ a.jsx(
+              y && /* @__PURE__ */ a.jsx(
                 "text",
                 {
                   x: r.addis_ababa.x,
@@ -526,7 +526,7 @@ const o1 = [
                   textAnchor: "middle",
                   dominantBaseline: "middle",
                   style: s("addis_ababa"),
-                  children: u(t.addis_ababa.value)
+                  children: x(t.addis_ababa.value)
                 }
               )
             ] }),
@@ -543,7 +543,7 @@ const o1 = [
                   onMouseLeave: () => o(null)
                 }
               ),
-              h && /* @__PURE__ */ a.jsx(
+              y && /* @__PURE__ */ a.jsx(
                 "text",
                 {
                   x: r.harar.x,
@@ -564,7 +564,7 @@ const o1 = [
                   textAnchor: "middle",
                   dominantBaseline: "middle",
                   style: s("harar"),
-                  children: u(t.harar.value)
+                  children: x(t.harar.value)
                 }
               )
             ] }),
@@ -635,7 +635,7 @@ const o1 = [
                   }
                 )
               ] }),
-              h && /* @__PURE__ */ a.jsx(
+              y && /* @__PURE__ */ a.jsx(
                 "text",
                 {
                   x: r.oromiya.x,
@@ -654,7 +654,7 @@ const o1 = [
                   className: d,
                   textAnchor: "middle",
                   dominantBaseline: "middle",
-                  children: u(t.oromiya.value)
+                  children: x(t.oromiya.value)
                 }
               )
             ] }),
@@ -670,7 +670,7 @@ const o1 = [
                   onMouseLeave: () => o(null)
                 }
               ),
-              h && /* @__PURE__ */ a.jsx(
+              y && /* @__PURE__ */ a.jsx(
                 "text",
                 {
                   x: r.snnpr.x,
@@ -689,7 +689,7 @@ const o1 = [
                   className: d,
                   textAnchor: "middle",
                   dominantBaseline: "middle",
-                  children: u(t.snnpr.value)
+                  children: x(t.snnpr.value)
                 }
               ),
               /* @__PURE__ */ a.jsx(
@@ -734,7 +734,7 @@ const o1 = [
                   }
                 )
               ] }),
-              h && /* @__PURE__ */ a.jsx(
+              y && /* @__PURE__ */ a.jsx(
                 "text",
                 {
                   x: r.somalia.x,
@@ -753,7 +753,7 @@ const o1 = [
                   className: d,
                   textAnchor: "middle",
                   dominantBaseline: "middle",
-                  children: u(t.somalia.value)
+                  children: x(t.somalia.value)
                 }
               )
             ] }),
@@ -770,7 +770,7 @@ const o1 = [
                   onMouseLeave: () => o(null)
                 }
               ),
-              h && /* @__PURE__ */ a.jsx(
+              y && /* @__PURE__ */ a.jsx(
                 "text",
                 {
                   x: r.amhara.x,
@@ -789,7 +789,7 @@ const o1 = [
                   className: d,
                   textAnchor: "middle",
                   dominantBaseline: "middle",
-                  children: u(t.amhara.value)
+                  children: x(t.amhara.value)
                 }
               )
             ] }),
@@ -806,7 +806,7 @@ const o1 = [
                   onMouseLeave: () => o(null)
                 }
               ),
-              h && /* @__PURE__ */ a.jsx(
+              y && /* @__PURE__ */ a.jsx(
                 "text",
                 {
                   x: r.afar.x,
@@ -825,7 +825,7 @@ const o1 = [
                   className: d,
                   textAnchor: "middle",
                   dominantBaseline: "middle",
-                  children: u(t.afar.value)
+                  children: x(t.afar.value)
                 }
               )
             ] }),
@@ -842,7 +842,7 @@ const o1 = [
                   onMouseLeave: () => o(null)
                 }
               ),
-              h && /* @__PURE__ */ a.jsx(
+              y && /* @__PURE__ */ a.jsx(
                 "text",
                 {
                   x: r.dire.x,
@@ -861,7 +861,7 @@ const o1 = [
                   className: d,
                   textAnchor: "middle",
                   dominantBaseline: "middle",
-                  children: u(t.dire.value)
+                  children: x(t.dire.value)
                 }
               )
             ] }),
@@ -878,7 +878,7 @@ const o1 = [
                   onMouseLeave: () => o(null)
                 }
               ),
-              h && /* @__PURE__ */ a.jsx(
+              y && /* @__PURE__ */ a.jsx(
                 "text",
                 {
                   x: r.sidama.x,
@@ -897,7 +897,7 @@ const o1 = [
                   className: d,
                   textAnchor: "middle",
                   dominantBaseline: "middle",
-                  children: u(t.sidama.value)
+                  children: x(t.sidama.value)
                 }
               )
             ] }),
@@ -914,7 +914,7 @@ const o1 = [
                   onMouseLeave: () => o(null)
                 }
               ),
-              h && /* @__PURE__ */ a.jsx(
+              y && /* @__PURE__ */ a.jsx(
                 "text",
                 {
                   x: r.gambella.x,
@@ -933,7 +933,7 @@ const o1 = [
                   className: d,
                   textAnchor: "middle",
                   dominantBaseline: "middle",
-                  children: u(t.gambella.value)
+                  children: x(t.gambella.value)
                 }
               )
             ] }),
@@ -950,7 +950,7 @@ const o1 = [
                   onMouseLeave: () => o(null)
                 }
               ),
-              h && /* @__PURE__ */ a.jsx(
+              y && /* @__PURE__ */ a.jsx(
                 "text",
                 {
                   x: r.benishangul.x,
@@ -969,7 +969,7 @@ const o1 = [
                   className: d,
                   textAnchor: "middle",
                   dominantBaseline: "middle",
-                  children: u(t.benishangul.value)
+                  children: x(t.benishangul.value)
                 }
               )
             ] })
@@ -987,22 +987,19 @@ const o1 = [
     ] }),
     M && m.length > 0 && /* @__PURE__ */ a.jsx("div", { className: "mt-2 pointer-events-none", children: /* @__PURE__ */ a.jsxs("div", { className: "pointer-events-auto p-4 max-w-2xl w-full", children: [
       /* @__PURE__ */ a.jsx("h3", { className: "text-sm font-bold mb-2", children: "Legend" }),
-      /* @__PURE__ */ a.jsx("ul", { className: "grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-x-4 gap-y-2 text-sm", children: m.map((l) => /* @__PURE__ */ a.jsxs("li", { className: "flex items-center", children: [
-        /* @__PURE__ */ a.jsx(
-          "div",
-          {
-            className: "w-4 h-4 mr-2 flex-shrink-0",
-            style: { backgroundColor: t[l.id]?.color || y }
-          }
-        ),
-        /* @__PURE__ */ a.jsxs("span", { className: "truncate", children: [
-          l.name,
-          t[l.id]?.value !== void 0 && /* @__PURE__ */ a.jsxs("span", { children: [
-            ": ",
-            u(t[l.id].value)
+      /* @__PURE__ */ a.jsx("ul", { className: "grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-x-4 gap-y-2 text-sm", children: m.map((l) => {
+        const u = t[l.id]?.color ? `bg-[${t[l.id].color.replace("#", "#")}]` : "bg-[#67AE6E]";
+        return /* @__PURE__ */ a.jsxs("li", { className: "flex items-center", children: [
+          /* @__PURE__ */ a.jsx("div", { className: `w-4 h-4 mr-2 flex-shrink-0 ${u}` }),
+          /* @__PURE__ */ a.jsxs("span", { className: "truncate", children: [
+            l.name,
+            t[l.id]?.value !== void 0 && /* @__PURE__ */ a.jsxs("span", { children: [
+              ": ",
+              x(t[l?.id]?.value)
+            ] })
           ] })
-        ] })
-      ] }, l.id)) })
+        ] }, l.id);
+      }) })
     ] }) })
   ] });
 };
