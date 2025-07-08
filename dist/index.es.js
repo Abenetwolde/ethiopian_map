@@ -14,18 +14,18 @@ function s1() {
   if (D) return O;
   D = 1;
   var i = Symbol.for("react.transitional.element"), _ = Symbol.for("react.fragment");
-  function b(t, h, p) {
+  function b(t, f, p) {
     var E = null;
-    if (p !== void 0 && (E = "" + p), h.key !== void 0 && (E = "" + h.key), "key" in h) {
+    if (p !== void 0 && (E = "" + p), f.key !== void 0 && (E = "" + f.key), "key" in f) {
       p = {};
-      for (var N in h)
-        N !== "key" && (p[N] = h[N]);
-    } else p = h;
-    return h = p.ref, {
+      for (var N in f)
+        N !== "key" && (p[N] = f[N]);
+    } else p = f;
+    return f = p.ref, {
       $$typeof: i,
       type: t,
       key: E,
-      ref: h !== void 0 ? h : null,
+      ref: f !== void 0 ? f : null,
       props: p
     };
   }
@@ -50,9 +50,9 @@ function l1() {
         return e.$$typeof === v ? null : e.displayName || e.name || null;
       if (typeof e == "string") return e;
       switch (e) {
-        case k:
+        case A:
           return "Fragment";
-        case X:
+        case F:
           return "Profiler";
         case C:
           return "StrictMode";
@@ -76,7 +76,7 @@ function l1() {
           case H:
             var s = e.render;
             return e = e.displayName, e || (e = s.displayName || s.name || "", e = e !== "" ? "ForwardRef(" + e + ")" : "ForwardRef"), e;
-          case y:
+          case h:
             return s = e.displayName || null, s !== null ? s : i(e.type) || "Memo";
           case d:
             s = e._payload, e = e._init;
@@ -99,16 +99,16 @@ function l1() {
       }
       if (s) {
         s = console;
-        var n = s.error, m = typeof Symbol == "function" && Symbol.toStringTag && e[Symbol.toStringTag] || e.constructor.name || "Object";
+        var n = s.error, u = typeof Symbol == "function" && Symbol.toStringTag && e[Symbol.toStringTag] || e.constructor.name || "Object";
         return n.call(
           s,
           "The provided key is an unsupported type %s. This value must be coerced to a string before using it here.",
-          m
+          u
         ), _(e);
       }
     }
     function t(e) {
-      if (e === k) return "<>";
+      if (e === A) return "<>";
       if (typeof e == "object" && e !== null && e.$$typeof === d)
         return "<...>";
       try {
@@ -118,7 +118,7 @@ function l1() {
         return "<...>";
       }
     }
-    function h() {
+    function f() {
       var e = x.A;
       return e === null ? null : e.getOwner();
     }
@@ -150,12 +150,12 @@ function l1() {
         "Accessing element.ref was removed in React 19. ref is now a regular prop. It will be removed from the JSX Element type in a future release."
       )), e = this.props.ref, e !== void 0 ? e : null;
     }
-    function U(e, s, n, m, l, u, g, J) {
-      return n = u.ref, e = {
+    function U(e, s, n, u, l, m, g, J) {
+      return n = m.ref, e = {
         $$typeof: w,
         type: e,
         key: s,
-        props: u,
+        props: m,
         _owner: l
       }, (n !== void 0 ? n : null) !== null ? Object.defineProperty(e, "ref", {
         enumerable: !1,
@@ -182,51 +182,51 @@ function l1() {
         value: J
       }), Object.freeze && (Object.freeze(e.props), Object.freeze(e)), e;
     }
-    function R(e, s, n, m, l, u, g, J) {
-      var f = s.children;
-      if (f !== void 0)
-        if (m)
-          if (Y(f)) {
-            for (m = 0; m < f.length; m++)
-              B(f[m]);
-            Object.freeze && Object.freeze(f);
+    function R(e, s, n, u, l, m, g, J) {
+      var y = s.children;
+      if (y !== void 0)
+        if (u)
+          if (Y(y)) {
+            for (u = 0; u < y.length; u++)
+              B(y[u]);
+            Object.freeze && Object.freeze(y);
           } else
             console.error(
               "React.jsx: Static children should always be an array. You are likely explicitly calling React.jsxs or React.jsxDEV. Use the Babel transform instead."
             );
-        else B(f);
+        else B(y);
       if (S.call(s, "key")) {
-        f = i(e);
+        y = i(e);
         var T = Object.keys(s).filter(function(r1) {
           return r1 !== "key";
         });
-        m = 0 < T.length ? "{key: someKey, " + T.join(": ..., ") + ": ...}" : "{key: someKey}", r[f + m] || (T = 0 < T.length ? "{" + T.join(": ..., ") + ": ...}" : "{}", console.error(
+        u = 0 < T.length ? "{key: someKey, " + T.join(": ..., ") + ": ...}" : "{key: someKey}", r[y + u] || (T = 0 < T.length ? "{" + T.join(": ..., ") + ": ...}" : "{}", console.error(
           `A props object containing a "key" prop is being spread into JSX:
   let props = %s;
   <%s {...props} />
 React keys must be passed directly to JSX without using spread:
   let props = %s;
   <%s key={someKey} {...props} />`,
-          m,
-          f,
+          u,
+          y,
           T,
-          f
-        ), r[f + m] = !0);
+          y
+        ), r[y + u] = !0);
       }
-      if (f = null, n !== void 0 && (b(n), f = "" + n), E(s) && (b(s.key), f = "" + s.key), "key" in s) {
+      if (y = null, n !== void 0 && (b(n), y = "" + n), E(s) && (b(s.key), y = "" + s.key), "key" in s) {
         n = {};
-        for (var F in s)
-          F !== "key" && (n[F] = s[F]);
+        for (var X in s)
+          X !== "key" && (n[X] = s[X]);
       } else n = s;
-      return f && N(
+      return y && N(
         n,
         typeof e == "function" ? e.displayName || e.name || "Unknown" : e
       ), U(
         e,
-        f,
-        u,
+        y,
+        m,
         l,
-        h(),
+        f(),
         n,
         g,
         J
@@ -235,41 +235,41 @@ React keys must be passed directly to JSX without using spread:
     function B(e) {
       typeof e == "object" && e !== null && e.$$typeof === w && e._store && (e._store.validated = 1);
     }
-    var A = n1, w = Symbol.for("react.transitional.element"), L = Symbol.for("react.portal"), k = Symbol.for("react.fragment"), C = Symbol.for("react.strict_mode"), X = Symbol.for("react.profiler"), Q = Symbol.for("react.consumer"), z = Symbol.for("react.context"), H = Symbol.for("react.forward_ref"), q = Symbol.for("react.suspense"), G = Symbol.for("react.suspense_list"), y = Symbol.for("react.memo"), d = Symbol.for("react.lazy"), K = Symbol.for("react.activity"), v = Symbol.for("react.client.reference"), x = A.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, S = Object.prototype.hasOwnProperty, Y = Array.isArray, M = console.createTask ? console.createTask : function() {
+    var k = n1, w = Symbol.for("react.transitional.element"), L = Symbol.for("react.portal"), A = Symbol.for("react.fragment"), C = Symbol.for("react.strict_mode"), F = Symbol.for("react.profiler"), Q = Symbol.for("react.consumer"), z = Symbol.for("react.context"), H = Symbol.for("react.forward_ref"), q = Symbol.for("react.suspense"), G = Symbol.for("react.suspense_list"), h = Symbol.for("react.memo"), d = Symbol.for("react.lazy"), K = Symbol.for("react.activity"), v = Symbol.for("react.client.reference"), x = k.__CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE, S = Object.prototype.hasOwnProperty, Y = Array.isArray, M = console.createTask ? console.createTask : function() {
       return null;
     };
-    A = {
+    k = {
       "react-stack-bottom-frame": function(e) {
         return e();
       }
     };
-    var j, W = {}, c = A["react-stack-bottom-frame"].bind(
-      A,
+    var j, W = {}, c = k["react-stack-bottom-frame"].bind(
+      k,
       p
     )(), o = M(t(p)), r = {};
-    P.Fragment = k, P.jsx = function(e, s, n, m, l) {
-      var u = 1e4 > x.recentlyCreatedOwnerStacks++;
+    P.Fragment = A, P.jsx = function(e, s, n, u, l) {
+      var m = 1e4 > x.recentlyCreatedOwnerStacks++;
       return R(
         e,
         s,
         n,
         !1,
-        m,
+        u,
         l,
-        u ? Error("react-stack-top-frame") : c,
-        u ? M(t(e)) : o
+        m ? Error("react-stack-top-frame") : c,
+        m ? M(t(e)) : o
       );
-    }, P.jsxs = function(e, s, n, m, l) {
-      var u = 1e4 > x.recentlyCreatedOwnerStacks++;
+    }, P.jsxs = function(e, s, n, u, l) {
+      var m = 1e4 > x.recentlyCreatedOwnerStacks++;
       return R(
         e,
         s,
         n,
         !0,
-        m,
+        u,
         l,
-        u ? Error("react-stack-top-frame") : c,
-        u ? M(t(e)) : o
+        m ? Error("react-stack-top-frame") : c,
+        m ? M(t(e)) : o
       );
     };
   }()), P;
@@ -359,7 +359,7 @@ const o1 = [
   setSelectedRegion: _,
   regions: b = o1,
   regionData: t = {},
-  defaultFillColor: h = "#00C4B4",
+  defaultFillColor: f = "#00C4B4",
   activeFillColor: p = "#40E0D0",
   hoverFillColor: E = "#40E0D0",
   strokeColor: N = "#ffffff",
@@ -367,18 +367,18 @@ const o1 = [
   strokeWidth: U = 1,
   activeStrokeWidth: R = 2,
   hoverOpacity: B = 0.9,
-  className: A = "",
+  className: k = "",
   svgClassName: w = "w-full h-auto",
   onRegionHover: L,
-  onRegionClick: k,
+  onRegionClick: A,
   tooltipContent: C,
-  width: X = "100%",
+  width: F = "100%",
   height: Q = "auto",
   viewBox: z = "0 0 441.853 328.295",
   enableZoom: H = !1,
   zoomLevel: q = 1,
   customStyles: G = "",
-  showRegionLabels: y = !1,
+  showRegionLabels: h = !1,
   labelClassName: d = "text-xs font-medium ",
   labelPosition: K = "center",
   showValues: v = !1,
@@ -388,11 +388,11 @@ const o1 = [
   showLegend: M = !0
 }) => {
   const [j, W] = t1(null), c = $((l) => {
-    _((u) => u === l ? null : l), k?.(l);
-  }, [_, k]), o = $((l) => {
+    _((m) => m === l ? null : l), A?.(l);
+  }, [_, A]), o = $((l) => {
     W(l), L?.(l);
   }, [L]), r = V(() => {
-    const l = {}, u = {
+    const l = {}, m = {
       tigray: { x: 150, y: 20 },
       addis_ababa: { x: 170, y: 170 },
       harar: { x: 265, y: 165 },
@@ -407,7 +407,7 @@ const o1 = [
       benishangul: { x: 80, y: 110 }
     };
     return b.forEach((g) => {
-      l[g.id] = u[g.id] || { x: 0, y: 0 };
+      l[g.id] = m[g.id] || { x: 0, y: 0 };
     }), l;
   }, [b]), e = $((l) => ({
     ...{
@@ -423,8 +423,8 @@ const o1 = [
       ...Y
     },
     ...t[l]?.valueStyle || {}
-  }), [t, Y]), n = $((l) => i === l ? p : j === l ? E : t[l]?.color || h, [i, j, t, h, p, E]), m = V(() => b.filter((l) => t[l.id]?.color), [b, t]);
-  return /* @__PURE__ */ a.jsxs("div", { className: `${A} flex flex-col lg:flex-row gap-4 p-4`, children: [
+  }), [t, Y]), n = $((l) => i === l ? p : j === l ? E : t[l]?.color || f, [i, j, t, f, p, E]), u = V(() => b.filter((l) => t[l.id]?.color), [b, t]);
+  return /* @__PURE__ */ a.jsxs("div", { className: `${k} flex flex-col lg:flex-row gap-4 p-4`, children: [
     /* @__PURE__ */ a.jsxs("div", { className: "relative", children: [
       /* @__PURE__ */ a.jsxs(
         "svg",
@@ -466,7 +466,7 @@ const o1 = [
                   onMouseLeave: () => o(null)
                 }
               ),
-              y && /* @__PURE__ */ a.jsx(
+              h && /* @__PURE__ */ a.jsx(
                 "text",
                 {
                   x: r.tigray.x,
@@ -505,7 +505,7 @@ const o1 = [
                   onMouseLeave: () => o(null)
                 }
               ),
-              y && /* @__PURE__ */ a.jsx(
+              h && /* @__PURE__ */ a.jsx(
                 "text",
                 {
                   x: r.addis_ababa.x,
@@ -543,7 +543,7 @@ const o1 = [
                   onMouseLeave: () => o(null)
                 }
               ),
-              y && /* @__PURE__ */ a.jsx(
+              h && /* @__PURE__ */ a.jsx(
                 "text",
                 {
                   x: r.harar.x,
@@ -635,7 +635,7 @@ const o1 = [
                   }
                 )
               ] }),
-              y && /* @__PURE__ */ a.jsx(
+              h && /* @__PURE__ */ a.jsx(
                 "text",
                 {
                   x: r.oromiya.x,
@@ -670,7 +670,7 @@ const o1 = [
                   onMouseLeave: () => o(null)
                 }
               ),
-              y && /* @__PURE__ */ a.jsx(
+              h && /* @__PURE__ */ a.jsx(
                 "text",
                 {
                   x: r.snnpr.x,
@@ -734,7 +734,7 @@ const o1 = [
                   }
                 )
               ] }),
-              y && /* @__PURE__ */ a.jsx(
+              h && /* @__PURE__ */ a.jsx(
                 "text",
                 {
                   x: r.somalia.x,
@@ -770,7 +770,7 @@ const o1 = [
                   onMouseLeave: () => o(null)
                 }
               ),
-              y && /* @__PURE__ */ a.jsx(
+              h && /* @__PURE__ */ a.jsx(
                 "text",
                 {
                   x: r.amhara.x,
@@ -806,7 +806,7 @@ const o1 = [
                   onMouseLeave: () => o(null)
                 }
               ),
-              y && /* @__PURE__ */ a.jsx(
+              h && /* @__PURE__ */ a.jsx(
                 "text",
                 {
                   x: r.afar.x,
@@ -842,7 +842,7 @@ const o1 = [
                   onMouseLeave: () => o(null)
                 }
               ),
-              y && /* @__PURE__ */ a.jsx(
+              h && /* @__PURE__ */ a.jsx(
                 "text",
                 {
                   x: r.dire.x,
@@ -878,7 +878,7 @@ const o1 = [
                   onMouseLeave: () => o(null)
                 }
               ),
-              y && /* @__PURE__ */ a.jsx(
+              h && /* @__PURE__ */ a.jsx(
                 "text",
                 {
                   x: r.sidama.x,
@@ -914,7 +914,7 @@ const o1 = [
                   onMouseLeave: () => o(null)
                 }
               ),
-              y && /* @__PURE__ */ a.jsx(
+              h && /* @__PURE__ */ a.jsx(
                 "text",
                 {
                   x: r.gambella.x,
@@ -950,7 +950,7 @@ const o1 = [
                   onMouseLeave: () => o(null)
                 }
               ),
-              y && /* @__PURE__ */ a.jsx(
+              h && /* @__PURE__ */ a.jsx(
                 "text",
                 {
                   x: r.benishangul.x,
@@ -985,17 +985,23 @@ const o1 = [
         }
       )
     ] }),
-    M && m.length > 0 && /* @__PURE__ */ a.jsx("div", { className: "mt-2 pointer-events-none", children: /* @__PURE__ */ a.jsxs("div", { className: "pointer-events-auto p-4 max-w-2xl w-full", children: [
+    M && u.length > 0 && /* @__PURE__ */ a.jsx("div", { className: "mt-2 pointer-events-none", children: /* @__PURE__ */ a.jsxs("div", { className: "pointer-events-auto p-4 max-w-2xl w-full", children: [
       /* @__PURE__ */ a.jsx("h3", { className: "text-sm font-bold mb-2", children: "Legend" }),
-      /* @__PURE__ */ a.jsx("ul", { className: "grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-x-4 gap-y-2 text-sm", children: m.map((l) => {
-        const u = t[l.id]?.color ? `bg-[${t[l.id].color.replace("#", "#")}]` : "bg-[#67AE6E]";
-        return /* @__PURE__ */ a.jsxs("li", { className: "flex items-center", children: [
-          /* @__PURE__ */ a.jsx("div", { className: `w-4 h-4 mr-2 flex-shrink-0 ${u}` }),
+      /* @__PURE__ */ a.jsx("ul", { className: "grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-x-4 gap-y-2 text-sm", children: u.map((l) => {
+        const m = t[l.id]?.color || f;
+        return m.startsWith("#") ? `${m.replace("#", "#")}` : `${m}`, /* @__PURE__ */ a.jsxs("li", { className: "flex items-center", children: [
+          /* @__PURE__ */ a.jsx(
+            "div",
+            {
+              className: "w-4 h-4 mr-2 flex-shrink-0 rounded border border-gray-300",
+              style: { backgroundColor: t[l.id]?.color || f }
+            }
+          ),
           /* @__PURE__ */ a.jsxs("span", { className: "truncate", children: [
             l.name,
             t[l.id]?.value !== void 0 && /* @__PURE__ */ a.jsxs("span", { children: [
               ": ",
-              x(t[l?.id]?.value)
+              x(t[l.id].value ?? "")
             ] })
           ] })
         ] }, l.id);

@@ -19,7 +19,7 @@ interface MapComponentProps {
   selectedRegion: string | null;
   setSelectedRegion: React.Dispatch<React.SetStateAction<string | null>>;
   regions?: MapRegion[];
-  regionData?: Record<string, any>;
+  regionData?: Record<string, RegionData>;
   defaultFillColor?: string;
   activeFillColor?: string;
   hoverFillColor?: string;
@@ -81,8 +81,8 @@ const EthiopiaSvgMap: React.FC<MapComponentProps> = ({
   valueFormatter = (val) => val.toString(),
   defaultLabelStyle = {},
   defaultValueStyle = {},
-  showLegend = true, 
-  
+  showLegend = true,
+
 }) => {
   const [hoveredRegion, setHoveredRegion] = useState<string | null>(null);
 
@@ -201,7 +201,7 @@ const EthiopiaSvgMap: React.FC<MapComponentProps> = ({
               onMouseEnter={() => handleRegionHover("tigray")}
               onMouseLeave={() => handleRegionHover(null)}
             />
-      
+
             {showRegionLabels && (
               <text
                 x={regionCenters.tigray.x}
@@ -240,7 +240,7 @@ const EthiopiaSvgMap: React.FC<MapComponentProps> = ({
               onMouseEnter={() => handleRegionHover("addis_ababa")}
               onMouseLeave={() => handleRegionHover(null)}
             />
-      
+
             {showRegionLabels && (
               <text
                 x={regionCenters.addis_ababa.x}
@@ -279,7 +279,7 @@ const EthiopiaSvgMap: React.FC<MapComponentProps> = ({
               onMouseEnter={() => handleRegionHover("harar")}
               onMouseLeave={() => handleRegionHover(null)}
             />
-       
+
             {showRegionLabels && (
               <text
                 x={regionCenters.harar.x}
@@ -356,7 +356,7 @@ const EthiopiaSvgMap: React.FC<MapComponentProps> = ({
                 onClick={() => handleRegionClick("oromiya")}
               />
             </g>
-  
+
             {showRegionLabels && (
               <text
                 x={regionCenters.oromiya.x}
@@ -391,7 +391,7 @@ const EthiopiaSvgMap: React.FC<MapComponentProps> = ({
               onMouseEnter={() => handleRegionHover("snnpr")}
               onMouseLeave={() => handleRegionHover(null)}
             />
-      
+
             {showRegionLabels && (
               <text
                 x={regionCenters.snnpr.x}
@@ -430,7 +430,7 @@ const EthiopiaSvgMap: React.FC<MapComponentProps> = ({
                 fill={getFillColor("somalia")}
                 className={`state ${selectedRegion === "somalia" ? "active" : ""}`}
                 onClick={() => handleRegionClick("somalia")}
-                 onMouseEnter={() => handleRegionHover("somalia")}
+                onMouseEnter={() => handleRegionHover("somalia")}
                 onMouseLeave={() => handleRegionHover(null)}
               />
               <polygon
@@ -446,7 +446,7 @@ const EthiopiaSvgMap: React.FC<MapComponentProps> = ({
                 onClick={() => handleRegionClick("somalia")}
               />
             </g>
-       
+
             {showRegionLabels && (
               <text
                 x={regionCenters.somalia.x}
@@ -482,11 +482,11 @@ const EthiopiaSvgMap: React.FC<MapComponentProps> = ({
 
 
 
-              
+
               onMouseEnter={() => handleRegionHover("amhara")}
               onMouseLeave={() => handleRegionHover(null)}
             />
-      
+
             {showRegionLabels && (
               <text
                 x={regionCenters.amhara.x}
@@ -522,7 +522,7 @@ const EthiopiaSvgMap: React.FC<MapComponentProps> = ({
               onMouseEnter={() => handleRegionHover("afar")}
               onMouseLeave={() => handleRegionHover(null)}
             />
-       
+
             {showRegionLabels && (
               <text
                 x={regionCenters.afar.x}
@@ -558,7 +558,7 @@ const EthiopiaSvgMap: React.FC<MapComponentProps> = ({
               onMouseEnter={() => handleRegionHover("dire")}
               onMouseLeave={() => handleRegionHover(null)}
             />
-     
+
             {showRegionLabels && (
               <text
                 x={regionCenters.dire.x}
@@ -594,7 +594,7 @@ const EthiopiaSvgMap: React.FC<MapComponentProps> = ({
               onMouseEnter={() => handleRegionHover("sidama")}
               onMouseLeave={() => handleRegionHover(null)}
             />
-    
+
             {showRegionLabels && (
               <text
                 x={regionCenters.sidama.x}
@@ -630,7 +630,7 @@ const EthiopiaSvgMap: React.FC<MapComponentProps> = ({
               onMouseEnter={() => handleRegionHover("gambella")}
               onMouseLeave={() => handleRegionHover(null)}
             />
-    
+
             {showRegionLabels && (
               <text
                 x={regionCenters.gambella.x}
@@ -666,7 +666,7 @@ const EthiopiaSvgMap: React.FC<MapComponentProps> = ({
               onMouseEnter={() => handleRegionHover("benishangul")}
               onMouseLeave={() => handleRegionHover(null)}
             />
-      
+
             {showRegionLabels && (
               <text
                 x={regionCenters.benishangul.x}
@@ -692,45 +692,52 @@ const EthiopiaSvgMap: React.FC<MapComponentProps> = ({
           </g>
         </svg>
 
-{tooltipContent && hoveredRegion && (
-  <div
-    className="absolute top-0 right-8 bg-white p-2 rounded shadow z-10 pointer-events-none"
-    style={{ transform: 'translateY(-100%)' }} // Move tooltip above the state
-  >
-    {tooltipContent(hoveredRegion, regionData[hoveredRegion])}
-  </div>
-)}
- 
+        {tooltipContent && hoveredRegion && (
+          <div
+            className="absolute top-0 right-8 bg-white p-2 rounded shadow z-10 pointer-events-none"
+            style={{ transform: 'translateY(-100%)' }} // Move tooltip above the state
+          >
+            {tooltipContent(hoveredRegion, regionData[hoveredRegion])}
+          </div>
+        )}
+
 
 
       </div>
-{showLegend && regionsWithColor.length > 0 && (
-  <div className="mt-2 pointer-events-none">
-    <div className="pointer-events-auto p-4 max-w-2xl w-full">
-      <h3 className="text-sm font-bold mb-2">Legend</h3>
-      <ul className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-x-4 gap-y-2 text-sm">
-        {regionsWithColor.map(region => {
-          // Map regionData color to Tailwind classes or fallback to default
-          const colorClass = regionData[region.id]?.color
-            ? `bg-[${regionData[region.id].color.replace('#', '#')}]`
-            : 'bg-[#67AE6E]'; // Fallback to defaultFillColor
+      {showLegend && regionsWithColor.length > 0 && (
+        <div className="mt-2 pointer-events-none">
+          <div className="pointer-events-auto p-4 max-w-2xl w-full">
+            <h3 className="text-sm font-bold mb-2">Legend</h3>
+            <ul className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-x-4 gap-y-2 text-sm">
+              {regionsWithColor.map(region => {
+                // Ensure color is valid; fallback to defaultFillColor
+                const color = regionData[region.id]?.color || defaultFillColor;
+                // Map color to a Tailwind-compatible class or use a predefined class
+                const colorClass = color.startsWith('#')
+                  ? `bg-[${color.replace('#', '#')}]`
+                  : `bg-${color}`; // Handles Tailwind color names or hex
 
-          return (
-            <li key={region.id} className="flex items-center">
-              <div className={`w-4 h-4 mr-2 flex-shrink-0 ${colorClass}`}></div>
-              <span className="truncate">
-                {region.name}
-                {regionData[region.id]?.value !== undefined && (
-                  <span>: {valueFormatter(regionData[region?.id]?.value)}</span>
-                )}
-              </span>
-            </li>
-          );
-        })}
-      </ul>
-    </div>
-  </div>
-)}
+                return (
+                  <li key={region.id} className="flex items-center">
+                    {/* <div className={`w-4 h-4 mr-2  bg-red-300 border border-gray-300`} /> */}
+                    <div
+                      className="w-4 h-4 mr-2 flex-shrink-0 rounded border border-gray-300"
+                      style={{  backgroundColor: regionData[region.id]?.color || defaultFillColor }}
+                    />
+                    {/* <p>{colorClass}</p> */}
+                    <span className="truncate">
+                      {region.name}
+                      {regionData[region.id]?.value !== undefined && (
+                        <span>: {valueFormatter(regionData[region.id].value ?? "")}</span>
+                      )}
+                    </span>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

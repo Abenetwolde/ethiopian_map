@@ -4,7 +4,8 @@ A customizable **React component** for rendering an interactive SVG map of Ethio
 
 ![Demo](./EthiopiaSvgMap.gif)
 
-[🌐 **Live Demo Website**](https://ethiopia-svg-map-demo.vercel.app/)
+[🌐 **Live Demo Website**](https://ethiopiasvgmap-demo.vercel.app/)
+[🔗 **ethiopia-svg-map**](https://www.npmjs.com/package/ethiopia-svg-map)
 ---
 
 ## 📦 Installation
